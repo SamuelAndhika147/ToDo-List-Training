@@ -17,7 +17,7 @@
         <td>Aksi</td>
     </tr>
     @php
-        $no = 1;
+    $no = 1;
     @endphp
     @foreach ($todos as $todo)
     <tr>
@@ -31,19 +31,23 @@
         <td>{{ $todo['status'] ? 'Complated' : 'On-Process' }}</td>
         <td>
             <div class="row-button">
-            <button><a href="/edit/{{$todo['id']}}">Edit</a> </button>
-            <form action="/destroy/{{$todo['id']}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit"><p>Delete</p></button>
-            </form>
-            <form action="/complated/{{$todo['id']}}" method="POST">
-                @csrf
-                @method('PATCH')
-                <button type="submit">Complated</button>
-            </form>
+                <button><a href="/edit/{{$todo['id']}}">Edit</a> </button>
+                <form action="/destroy/{{$todo['id']}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">
+                        <p>Delete</p>
+                    </button>
+                </form>
+                @if ($todo['status'] == 0)
+                <form action="/complated/{{$todo['id']}}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit">Complated</button>
+                </form>
+                @endif
             </div>
-        </td>   
+        </td>
     </tr>
     @endforeach
 </table>
